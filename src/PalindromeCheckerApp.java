@@ -1,36 +1,29 @@
-import java.util.LinkedList;
-
-public class PalindromeCheckerApp {
+public class UseCase9PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        // Define the input string
-        String input = "level";
+        String input = "madam";
 
-        // Create a LinkedList to store characters
-        LinkedList<Character> list = new LinkedList<>();
-
-        // Add each character to the list
-        for (char c : input.toCharArray()) {
-            list.addLast(c);
-        }
-
-        // Flag to track palindrome status
-        boolean isPalindrome = true;
-
-        // Compare characters while more than one element exists
-        while (list.size() > 1) {
-
-            char first = list.removeFirst();
-            char last = list.removeLast();
-
-            if (first != last) {
-                isPalindrome = false;
-                break;
-            }
-        }
+        boolean result = checkPalindrome(input, 0, input.length() - 1);
 
         System.out.println("Input : " + input);
-        System.out.println("Is Palindrome : " + isPalindrome);
+        System.out.println("Is Palindrome : " + result);
+    }
+
+    // Recursive method
+    private static boolean checkPalindrome(String str, int start, int end) {
+
+        // Base case
+        if (start >= end) {
+            return true;
+        }
+
+        // If characters don't match
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
+        }
+
+        // Recursive call
+        return checkPalindrome(str, start + 1, end - 1);
     }
 }
