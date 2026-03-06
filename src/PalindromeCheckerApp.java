@@ -1,51 +1,33 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class PalindromeCheckerApp {
-
-    // User-defined Stack class
-    static class StackCharacter {
-        private char[] arr;
-        private int top;
-
-        public StackCharacter(int size) {
-            arr = new char[size];
-            top = -1;
-        }
-
-        public void push(char c) {
-            arr[++top] = c;
-        }
-
-        public char pop() {
-            return arr[top--];
-        }
-
-        public boolean isEmpty() {
-            return top == -1;
-        }
-    }
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        // Read input from user
+        // Define the input string to validate
         System.out.print("Input : ");
         String input = scanner.nextLine();
 
-        // Create stack
-        StackCharacter stack = new StackCharacter(input.length());
+        // Create a Queue to store characters in FIFO order
+        Queue<Character> queue = new LinkedList<>();
 
-        // Push characters into stack
+        // Create a Stack to store characters in LIFO order
+        Stack<Character> stack = new Stack<>();
+
+        // Insert each character into queue and stack
         for (char c : input.toCharArray()) {
+            queue.add(c);
             stack.push(c);
         }
 
+        // Assume palindrome
         boolean isPalindrome = true;
 
         // Compare characters
-        for (char c : input.toCharArray()) {
-            if (c != stack.pop()) {
+        while (!queue.isEmpty()) {
+            if (queue.remove() != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
