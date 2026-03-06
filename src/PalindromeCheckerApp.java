@@ -1,32 +1,59 @@
+import java.util.Scanner;
+
 public class PalindromeCheckerApp {
+
+    // User-defined Stack class
+    static class StackCharacter {
+        private char[] arr;
+        private int top;
+
+        public StackCharacter(int size) {
+            arr = new char[size];
+            top = -1;
+        }
+
+        public void push(char c) {
+            arr[++top] = c;
+        }
+
+        public char pop() {
+            return arr[top--];
+        }
+
+        public boolean isEmpty() {
+            return top == -1;
+        }
+    }
 
     public static void main(String[] args) {
 
-        // Declare and initialize the input string
-        String input = "radar";
+        Scanner scanner = new Scanner(System.in);
 
-        // Convert the string into a character array
-        char[] chars = input.toCharArray();
+        // Read input from user
+        System.out.print("Input : ");
+        String input = scanner.nextLine();
 
-        // Initialize pointers
-        int start = 0;
-        int end = chars.length - 1;
+        // Create stack
+        StackCharacter stack = new StackCharacter(input.length());
 
-        // Assume palindrome initially
+        // Push characters into stack
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+
         boolean isPalindrome = true;
 
-        // Continue comparison until pointers cross
-        while (start < end) {
-            if (chars[start] != chars[end]) {
+        // Compare characters
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
-            start++;
-            end--;
         }
 
         // Display result
-        System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
+
+        scanner.close();
     }
 }
